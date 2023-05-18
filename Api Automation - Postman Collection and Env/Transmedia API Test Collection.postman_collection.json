@@ -1,0 +1,808 @@
+{
+	"info": {
+		"_postman_id": "1d77ae72-afc6-40b6-897a-095ebfa6b158",
+		"name": "Transmedia API Test Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5876550"
+	},
+	"item": [
+		{
+			"name": "Signup Request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(pm.request.body);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Perform Signup Test\", function (){\r",
+							"    pm.environment.set(\"email\",pm.response.json().data.email)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "language=en; welcomebanner_status=dismiss; cookieconsent_status=dismiss; continueCode=qaPvoVmb0NWhytQUlHeT3f6HBi1Sj5u68fnxHl8cmeS9YFzxsJ5Agry2px5X"
+					},
+					{
+						"key": "Origin",
+						"value": "https://juice-shop.herokuapp.com"
+					},
+					{
+						"key": "Referer",
+						"value": "https://juice-shop.herokuapp.com/"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"113\", \"Chromium\";v=\"113\", \"Not-A.Brand\";v=\"24\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"passwordRepeat\": \"{{password}}\",\r\n  \"securityQuestion\": {\r\n    \"id\": 1,\r\n    \"question\": \"Your eldest siblings middle name?\",\r\n    \"createdAt\": \"2023-05-18T14:59:33.254Z\",\r\n    \"updatedAt\": \"2023-05-18T14:59:33.254Z\"\r\n  },\r\n  \"securityAnswer\": \"roy\"\r\n}"
+				},
+				"url": {
+					"raw": "https://juice-shop.herokuapp.com/api/Users/",
+					"protocol": "https",
+					"host": [
+						"juice-shop",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"Users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Login Test\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 200]);\r",
+							"    var token =pm.response.json().authentication.token;\r",
+							"    pm.expect(token==null || token=='').to.be.equals(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Save Variables\",function() {\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"token\",'Bearer '+ jsonData.authentication.token);\r",
+							"pm.environment.set(\"basket_id\",jsonData.authentication.bid)\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "language=en; welcomebanner_status=dismiss; continueCode=ROuJhPtjIrTksyFVUbHXu2hQcLT3FBi8fjSKUWHLuEtniWfwSxHryuE2tNrc2ri1ofvqSkXHo1uBnhbWcNDTqlCxzSE8U1gT7aC3ys1qiaxSRNU8PhgptooIyvTQzsj9iN9fJVULXHPv; cookieconsent_status=dismiss"
+					},
+					{
+						"key": "Origin",
+						"value": "https://juice-shop.herokuapp.com"
+					},
+					{
+						"key": "Referer",
+						"value": "https://juice-shop.herokuapp.com/"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"113\", \"Chromium\";v=\"113\", \"Not-A.Brand\";v=\"24\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"{{email}}\",\"password\":\"{{password}}\"}"
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/user/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Product Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();\r",
+							"pm.test(\"Check product count before adding to basket\", function () {\r",
+							"    pm.expect(response.data.length>0).to.equals(true);\r",
+							"});\r",
+							"pm.test(\"Save products\", function () {\r",
+							"     pm.environment.set(\"product1Id\",response.data[0].id);\r",
+							"     pm.environment.set(\"product2Id\",response.data[1].id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Cookie",
+						"value": "language=en; welcomebanner_status=dismiss; cookieconsent_status=dismiss; token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MjkyNCwidXNlcm5hbWUiOiIiLCJlbWFpbCI6InRlc3QyNUB5b3BtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTQ5Mjk3M2MxMzNmOTNkZjMxNTU3Y2U5YWQyMGM3OGMiLCJyb2xlIjoiY3VzdG9tZXIiLCJkZWx1eGVUb2tlbiI6IiIsImxhc3RMb2dpbklwIjoidW5kZWZpbmVkIiwicHJvZmlsZUltYWdlIjoiL2Fzc2V0cy9wdWJsaWMvaW1hZ2VzL3VwbG9hZHMvZGVmYXVsdC5zdmciLCJ0b3RwU2VjcmV0IjoiIiwiaXNBY3RpdmUiOnRydWUsImNyZWF0ZWRBdCI6IjIwMjMtMDUtMTggMDk6NTY6NDEuMDc5ICswMDowMCIsInVwZGF0ZWRBdCI6IjIwMjMtMDUtMTggMTA6MDg6MTUuNzI1ICswMDowMCIsImRlbGV0ZWRBdCI6bnVsbH0sImlhdCI6MTY4NDQwNDU1MywiZXhwIjoxNjg0NDIyNTUzfQ.UD_7wWPwPpAa1WewB0n3wJzy_h_CB6ZfKAOK2qq2tlcT0hBOM8bV6nZ4aPj5WqirmGYMxQ7QqYzTZn66LgydGTEgkv2AUBItC9ewRck4e0QBhHvrxk8yGXAfk8Qt9_HQ5VitDjSyP_qfDnAfD1Cq28KCnUPhYBZ4Pt6gq8b2If8; continueCode=9knXzKOZqYdwNU3HyTBf6HPi1SByuZvfx3HLxcYZSPxiazsKJAReEP2abL5J",
+						"disabled": true
+					},
+					{
+						"key": "If-None-Match",
+						"value": "W/\"1767-6GL39M/w05cUtf8B1XgZWueL+uU\"",
+						"disabled": true
+					},
+					{
+						"key": "Referer",
+						"value": "https://juice-shop.herokuapp.com/"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"113\", \"Chromium\";v=\"113\", \"Not-A.Brand\";v=\"24\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					}
+				],
+				"url": {
+					"raw": "https://juice-shop.herokuapp.com/api/Quantitys/",
+					"protocol": "https",
+					"host": [
+						"juice-shop",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"Quantitys",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Item 1 Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Product 1 add test successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "language=en; welcomebanner_status=dismiss; cookieconsent_status=dismiss; continueCode=rzVL1njmp0e7tXU9HMTofEHviaSx2u6vfO5HNjcJDS1Zcx2s8Yd3NRJDP567; token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MjIsInVzZXJuYW1lIjoiIiwiZW1haWwiOiJ0ZXN0MjZAeW9wbWFpbC5jb20iLCJwYXNzd29yZCI6IjE0OTI5NzNjMTMzZjkzZGYzMTU1N2NlOWFkMjBjNzhjIiwicm9sZSI6ImN1c3RvbWVyIiwiZGVsdXhlVG9rZW4iOiIiLCJsYXN0TG9naW5JcCI6IjAuMC4wLjAiLCJwcm9maWxlSW1hZ2UiOiIvYXNzZXRzL3B1YmxpYy9pbWFnZXMvdXBsb2Fkcy9kZWZhdWx0LnN2ZyIsInRvdHBTZWNyZXQiOiIiLCJpc0FjdGl2ZSI6dHJ1ZSwiY3JlYXRlZEF0IjoiMjAyMy0wNS0xOCAxNDoxMjo0Mi45ODEgKzAwOjAwIiwidXBkYXRlZEF0IjoiMjAyMy0wNS0xOCAxNDoxMjo0Mi45ODEgKzAwOjAwIiwiZGVsZXRlZEF0IjpudWxsfSwiaWF0IjoxNjg0NDE5MjI5LCJleHAiOjE2ODQ0MzcyMjl9.ig5cH2AIySGf2j1dZx75z1OnHZ7BCNizlPdSwnYtcgtIRhIKsxH1YaCGZw5Jvlf7jUP0d8XwBkDj8iqJh4baGsMWbO-4c6wrVDQJsjqjmhUcxwNed2nDi71MV5wPGtowqTXgb3390aK108bxSX731CE1NYVKI6UbFLvtOkYhy8s"
+					},
+					{
+						"key": "Origin",
+						"value": "https://juice-shop.herokuapp.com"
+					},
+					{
+						"key": "Referer",
+						"value": "https://juice-shop.herokuapp.com/"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"113\", \"Chromium\";v=\"113\", \"Not-A.Brand\";v=\"24\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"ProductId\":{{product1Id}},\"BasketId\":{{basket_id}},\"quantity\":1}"
+				},
+				"url": {
+					"raw": "https://juice-shop.herokuapp.com/api/BasketItems/",
+					"protocol": "https",
+					"host": [
+						"juice-shop",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"BasketItems",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Basket Details Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Verify item count is 1\", function () {\r",
+							"    \r",
+							"    var response = pm.response.json();\r",
+							"    console.log(response.data.Products.length);\r",
+							"    pm.expect(response.data.Products.length).to.equals(1);\r",
+							"    pm.environment.set(\"deleteItem\",response.data.Products[0].BasketItem.id);\r",
+							"});\r",
+							"   "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Referer",
+						"value": "https://juice-shop.herokuapp.com/"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"113\", \"Chromium\";v=\"113\", \"Not-A.Brand\";v=\"24\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "https://juice-shop.herokuapp.com/rest/basket/{{basket_id}}",
+					"protocol": "https",
+					"host": [
+						"juice-shop",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"rest",
+						"basket",
+						"{{basket_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Item 2 Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Product 2 add test successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "language=en; welcomebanner_status=dismiss; cookieconsent_status=dismiss; continueCode=rzVL1njmp0e7tXU9HMTofEHviaSx2u6vfO5HNjcJDS1Zcx2s8Yd3NRJDP567; token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MjIsInVzZXJuYW1lIjoiIiwiZW1haWwiOiJ0ZXN0MjZAeW9wbWFpbC5jb20iLCJwYXNzd29yZCI6IjE0OTI5NzNjMTMzZjkzZGYzMTU1N2NlOWFkMjBjNzhjIiwicm9sZSI6ImN1c3RvbWVyIiwiZGVsdXhlVG9rZW4iOiIiLCJsYXN0TG9naW5JcCI6IjAuMC4wLjAiLCJwcm9maWxlSW1hZ2UiOiIvYXNzZXRzL3B1YmxpYy9pbWFnZXMvdXBsb2Fkcy9kZWZhdWx0LnN2ZyIsInRvdHBTZWNyZXQiOiIiLCJpc0FjdGl2ZSI6dHJ1ZSwiY3JlYXRlZEF0IjoiMjAyMy0wNS0xOCAxNDoxMjo0Mi45ODEgKzAwOjAwIiwidXBkYXRlZEF0IjoiMjAyMy0wNS0xOCAxNDoxMjo0Mi45ODEgKzAwOjAwIiwiZGVsZXRlZEF0IjpudWxsfSwiaWF0IjoxNjg0NDE5MjI5LCJleHAiOjE2ODQ0MzcyMjl9.ig5cH2AIySGf2j1dZx75z1OnHZ7BCNizlPdSwnYtcgtIRhIKsxH1YaCGZw5Jvlf7jUP0d8XwBkDj8iqJh4baGsMWbO-4c6wrVDQJsjqjmhUcxwNed2nDi71MV5wPGtowqTXgb3390aK108bxSX731CE1NYVKI6UbFLvtOkYhy8s"
+					},
+					{
+						"key": "Origin",
+						"value": "https://juice-shop.herokuapp.com"
+					},
+					{
+						"key": "Referer",
+						"value": "https://juice-shop.herokuapp.com/"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"113\", \"Chromium\";v=\"113\", \"Not-A.Brand\";v=\"24\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"ProductId\":{{product2Id}},\"BasketId\":{{basket_id}},\"quantity\":1}"
+				},
+				"url": {
+					"raw": "https://juice-shop.herokuapp.com/api/BasketItems/",
+					"protocol": "https",
+					"host": [
+						"juice-shop",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"BasketItems",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Item Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Product delete successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Cookie",
+						"value": "language=en; welcomebanner_status=dismiss; cookieconsent_status=dismiss; continueCode=3zOKagmDXxjeZ4dEjU3HET4fYHQiW3f5jH98t2wCZLs75GrVBPnL8JMlNQko; token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MjkyNCwidXNlcm5hbWUiOiIiLCJlbWFpbCI6InRlc3QyNUB5b3BtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTQ5Mjk3M2MxMzNmOTNkZjMxNTU3Y2U5YWQyMGM3OGMiLCJyb2xlIjoiY3VzdG9tZXIiLCJkZWx1eGVUb2tlbiI6IiIsImxhc3RMb2dpbklwIjoidW5kZWZpbmVkIiwicHJvZmlsZUltYWdlIjoiL2Fzc2V0cy9wdWJsaWMvaW1hZ2VzL3VwbG9hZHMvZGVmYXVsdC5zdmciLCJ0b3RwU2VjcmV0IjoiIiwiaXNBY3RpdmUiOnRydWUsImNyZWF0ZWRBdCI6IjIwMjMtMDUtMTggMDk6NTY6NDEuMDc5ICswMDowMCIsInVwZGF0ZWRBdCI6IjIwMjMtMDUtMTggMTA6MDg6MTUuNzI1ICswMDowMCIsImRlbGV0ZWRBdCI6bnVsbH0sImlhdCI6MTY4NDQwNDU1MywiZXhwIjoxNjg0NDIyNTUzfQ.UD_7wWPwPpAa1WewB0n3wJzy_h_CB6ZfKAOK2qq2tlcT0hBOM8bV6nZ4aPj5WqirmGYMxQ7QqYzTZn66LgydGTEgkv2AUBItC9ewRck4e0QBhHvrxk8yGXAfk8Qt9_HQ5VitDjSyP_qfDnAfD1Cq28KCnUPhYBZ4Pt6gq8b2If8"
+					},
+					{
+						"key": "Origin",
+						"value": "https://juice-shop.herokuapp.com"
+					},
+					{
+						"key": "Referer",
+						"value": "https://juice-shop.herokuapp.com/"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"113\", \"Chromium\";v=\"113\", \"Not-A.Brand\";v=\"24\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://juice-shop.herokuapp.com/api/BasketItems/{{deleteItem}}",
+					"protocol": "https",
+					"host": [
+						"juice-shop",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"BasketItems",
+						"{{deleteItem}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Basket Details After Delete One Product Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Verify item count is 1\", function () {\r",
+							"    \r",
+							"    var response = pm.response.json();\r",
+							"    console.log(response.data.Products.length);\r",
+							"    pm.expect(response.data.Products.length).to.equals(1);\r",
+							"});\r",
+							"   "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Referer",
+						"value": "https://juice-shop.herokuapp.com/"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"113\", \"Chromium\";v=\"113\", \"Not-A.Brand\";v=\"24\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "https://juice-shop.herokuapp.com/rest/basket/{{basket_id}}",
+					"protocol": "https",
+					"host": [
+						"juice-shop",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"rest",
+						"basket",
+						"{{basket_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
