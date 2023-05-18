@@ -22,8 +22,8 @@ public class TestCaseProblem1 extends BaseTestCase{
 	AddToBasketPage objAddToBasketPage;
 	AddAddressPage objAddressPage;
 
-	private String loginUserName="YOUR_EMAIL";
-	private static String loginPassword="YOUR_PASSWORD";
+	private String loginUserName="Ashleigh89@gmail.com";
+	private static String loginPassword="Ab1!2345";
 
 
 	@BeforeTest
