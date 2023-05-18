@@ -10,7 +10,7 @@ public class AddToBasketPage {
 	public By checkOut = By.xpath("//button[@id='checkoutButton']");
 	private By addToAddress = By.xpath("//button[@aria-label='Add a new address']");
 	public By popup = By.xpath("//span[normalize-space()='X']");
-	
+	public By addPopup = By.xpath("//div[@class='cdk-overlay-container bluegrey-lightgreen-theme']");
 	public AddToBasketPage(WebDriver driver) {
 		this.driver = driver;
 	}

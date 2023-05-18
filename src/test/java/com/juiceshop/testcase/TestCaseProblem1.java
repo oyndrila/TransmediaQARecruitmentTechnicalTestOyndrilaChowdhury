@@ -42,6 +42,7 @@ public class TestCaseProblem1 extends BaseTestCase{
 		objAddToBasketPage= new AddToBasketPage(driver);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(objAddToBasketPage.itemSelector));
 		objAddToBasketPage.clickButton();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(objAddToBasketPage.addPopup));
 		objAddToBasketPage.clickYourBasket();
 		WebElement button = wait.until(ExpectedConditions.elementToBeClickable(objAddToBasketPage.checkOut));
 		button.click();
